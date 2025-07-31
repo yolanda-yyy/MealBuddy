@@ -1,0 +1,34 @@
+Table Name,SQL
+users,"CREATE TABLE users (
+      id SERIAL PRIMARY KEY,
+      username VARCHAR(50) UNIQUE NOT NULL,
+      preferences TEXT,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );"
+restaurants,"CREATE TABLE restaurants (
+      id SERIAL PRIMARY KEY,
+      name VARCHAR(100) NOT NULL,
+      rating DECIMAL(2,1),
+      distance_m INTEGER,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );"
+meetups,"CREATE TABLE meetups (
+      id SERIAL PRIMARY KEY,
+      user_id INTEGER REFERENCES users(id),
+      restaurant_id INTEGER REFERENCES restaurants(id),
+      datetime TIMESTAMP NOT NULL,
+      group_size INTEGER NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );"
+posts,"CREATE TABLE posts (
+      id SERIAL PRIMARY KEY,
+      user_id INTEGER REFERENCES users(id),
+      content TEXT NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );"
+reactions,"CREATE TABLE reactions (
+      id SERIAL PRIMARY KEY,
+      post_id INTEGER REFERENCES posts(id),
+      reaction_type VARCHAR(20),
+      count INTEGER DEFAULT 0
+    );"
